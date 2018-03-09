@@ -2,15 +2,18 @@
 // modele.php
 // Date de création 13.02.18
 
+//////////////////////////////////////////////////////////////////////////
 // Connexion à la BD
+//////////////////////////////////////////////////////////////////////////
 function getBD()
 {
 	$connexion = new PDO('mysql:host=localhost; dbname=horaire; charset=utf8','root','');
-	//$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERMODE_EXCEPTION);
 	return $connexion;
 }
 
+//////////////////////////////////////////////////////////////////////////
 // Fonction de contrôle de login
+//////////////////////////////////////////////////////////////////////////
 function getLogin($post)
 {
 	$connexion = getBD();
@@ -19,7 +22,9 @@ function getLogin($post)
 	return $resultats;
 }
 
+//////////////////////////////////////////////////////////////////////////
 // Recupère toutes les infirmières et les responsables
+//////////////////////////////////////////////////////////////////////////
 function getUser()
 {
 	$connexion = getBD();
@@ -28,6 +33,9 @@ function getUser()
 	return $resultats;
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Défini un nouvel horaire
+//////////////////////////////////////////////////////////////////////////
 function sethoraire($post)
 {
 
@@ -37,14 +45,33 @@ function sethoraire($post)
 	return "true";
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Récupère l'horaire personnel d'une personne
+//////////////////////////////////////////////////////////////////////////
 function getHorairePersonnel()
 {
     $connexion = getBD();
     $user = $_SESSION['idutilisateur'];
-    echo $user;
-    $requete ="SELECT * FROM tblhoraire WHERE fk_utilisateur = '".$user."'";
+    $requete ="SELECT * FROM tblhoraire WHERE fk_utilisateur = '".$user."' ORDER BY datedebut";
     $resultats = $connexion->query($requete);
     return $resultats;
 }
 
+//////////////////////////////////////////////////////////////////////////
+// Récupère les infirmières disponible pour le jour donné
+//////////////////////////////////////////////////////////////////////////
+function getinfirmieredisponible($post)
+{
+    $connexion = getBD();
 
+}
+
+function gethoraireglobal()
+{
+    $connexion = getBD();
+    $requete ="SELECT tblhoraire.idhoraire, tblhoraire.datedebut, tblhoraire.datefin, tblhoraire.fk_utilisateur, tblutilisateurs.nom, tblutilisateurs.prenom, tblhoraire.fk_plagehoraire
+        FROM tblhoraire 
+    INNER JOIN tblutilisateurs ON tblutilisateurs.idutilisateur = tblhoraire.fk_utilisateur";
+    $resultats = $connexion->query($requete);
+    return $resultats;
+}

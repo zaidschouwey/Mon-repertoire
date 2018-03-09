@@ -22,7 +22,23 @@ try
             	break;
 
             case 'definirhoraire':
-            	definirhoraire();
+            	definirhoraire();       
+            	break;
+
+            case 'echangehoraire':            	
+            	echangehoraire();
+            	break;
+            	
+            case 'demanderechangehoraire':
+            	demanderechangehoraire();
+            	break;
+
+            case 'infirmieredisponible':
+            	infirmieredisponible();
+            	break;
+
+            case 'horaireglobal':
+            	horaireglobal();
             	break;
             	
 			default :

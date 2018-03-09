@@ -20,10 +20,12 @@
         $_SESSION['idutilisateur']=$ligne['idutilisateur'];
         $_SESSION['login']=$ligne['login'];
         $_SESSION['typeutilisateur']=$ligne['fk_typeutilisateur'];
+        ?> <meta http-equiv="refresh" content="2;url=index.php" /><?php
       }
       else
       {
           echo "Erreur de login";
+          ?> <meta http-equiv="refresh" content="2;url=index.php" /><?php
       }
     } 
 
@@ -31,7 +33,7 @@
 
     else 
     { 
-      if (isset($_SESSION['log(arg)in']))
+      if (isset($_SESSION['login']))
       {
         session_destroy();
         header ("location:index.php");
@@ -46,7 +48,7 @@
         <td>Mot de passe : </td><td><input type="password" placeholder="Entrez votre password" name="fpassword" /></td>
       </tr>
       <tr>  
-        <td></td><td><input class="btn" type="submit" value="login" />
+        <td><input class="btn" type="submit" value="login" />
         </td>
       </tr>
     </table>

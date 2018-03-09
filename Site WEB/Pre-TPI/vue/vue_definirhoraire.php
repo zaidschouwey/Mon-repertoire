@@ -1,10 +1,9 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <?php
-// fichier : accueil.php
-// date de création : 25.05.16
+// fichier : vue_definirhor.php
+// date de création : -
   
   $titre = 'Accueil';
-  
   ob_start();
 ?>
   <h2>Etablir un horaire</h2>
@@ -45,7 +44,7 @@
         </tr>
 
        <tr>
-         <td><input class="btn" type="submit" value="Définir l'horaire" /></td>
+         <td><input class="btn" type="submit" value="Définir l'horaire"/></td>
        </tr>
       </table>
     </form>

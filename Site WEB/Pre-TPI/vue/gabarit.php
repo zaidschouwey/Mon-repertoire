@@ -40,11 +40,11 @@
             <ul class="nav navbar-nav">
 
               <?php if ($_SESSION['typeutilisateur'] == '2') : ?>
-
+              <li><a href="index.php?action=horaireglobal">Horaire global</a></li>
               <li><a href="text.html">Changer un horaire</a></li>
               <li><a href="index.php?action=etablirhoraire">Etablir un horaire</a></li>
-               <?php endif ?>
-               <li></li>
+               <?php endif; ?>
+              <li><a href="index.php">Horaire personnel</a></li>
               <li><a href="index.php?action=login">Se déconnecter</a></li>
             </ul>
           </div><?php endif; ?>
