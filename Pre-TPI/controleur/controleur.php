@@ -56,9 +56,12 @@ function definirhoraire()
 {
 	if(isset($_SESSION['typeutilisateur'])){
 		if($_SESSION['typeutilisateur'] == 2){
+			
+
+
 			if(isset($_POST)){
 				sethoraire($_POST);
-				require 'vue/vue_definirhoraire.php';
+				header("location:index.php?action=etablirhoraire");
 			}
 		} else {erreur("Vous n'avez pas les accès.");}
 	} else {erreur("Vous n'avez pas les accès.");}
@@ -84,6 +87,7 @@ function infirmieredisponible()
 	if(isset($_SESSION['typeutilisateur']))
 	{
 		$resultats = getinfirmieredisponible($_POST);
+		require 'vue/vue_personnelsdisponibles.php';
 	}
 }
 

@@ -28,7 +28,7 @@ function getLogin($post)
 function getUser()
 {
 	$connexion = getBD();
-	$requete ="SELECT * FROM tblutilisateurs WHERE fk_typeutilisateur='1' OR fk_typeutilisateur = '2'";
+	$requete ="SELECT * FROM tblutilisateurs WHERE fk_typeutilisateur='1' OR fk_typeutilisateur = '2' ORDER BY nom";
 	$resultats = $connexion->query($requete);
 	return $resultats;
 }
@@ -63,6 +63,13 @@ function getHorairePersonnel()
 function getinfirmieredisponible($post)
 {
     $connexion = getBD();
+    $requete = "SELECT tblhoraire.idhoraire, tblhoraire.datedebut, tblhoraire.datefin, tblhoraire.fk_utilisateur, tblutilisateurs.nom, tblutilisateurs.prenom, tblhoraire.fk_plagehoraire
+                FROM tblhoraire 
+                INNER JOIN tblutilisateurs ON tblutilisateurs.idutilisateur = tblhoraire.fk_utilisateur
+                WHERE ".$post['fjour']."  NOT BETWEEN datedebut AND datefin";
+    $resultats = $connexion->query($requete);
+    $_SESSION['jourechange'] = $post['fjour'];
+    return $resultats;
 
 }
 
@@ -71,7 +78,7 @@ function gethoraireglobal()
     $connexion = getBD();
     $requete ="SELECT tblhoraire.idhoraire, tblhoraire.datedebut, tblhoraire.datefin, tblhoraire.fk_utilisateur, tblutilisateurs.nom, tblutilisateurs.prenom, tblhoraire.fk_plagehoraire
         FROM tblhoraire 
-    INNER JOIN tblutilisateurs ON tblutilisateurs.idutilisateur = tblhoraire.fk_utilisateur";
+    INNER JOIN tblutilisateurs ON tblutilisateurs.idutilisateur = tblhoraire.fk_utilisateur ORDER BY tblhoraire.datedebut";
     $resultats = $connexion->query($requete);
     return $resultats;
 }

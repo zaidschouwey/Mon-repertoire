@@ -5,40 +5,36 @@
   $titre = 'Accueil';
   
   ob_start();
-?>
+  ?>
   <h2>Connexion</h2>
   <article>
-<?php
-    if (isset($resultats)) 
-    { 
-      // les données dans le formulaire sont exactes
-      $ligne=$resultats->fetch();
-      if (isset($ligne['prenom']))
-      {
-        echo "Bonjour ".$ligne['prenom']." ".$ligne['nom'].". Vous êtes connecté."; 
-        // Création de la session
-        $_SESSION['idutilisateur']=$ligne['idutilisateur'];
-        $_SESSION['login']=$ligne['login'];
-        $_SESSION['typeutilisateur']=$ligne['fk_typeutilisateur'];
+  <?php
+  if (isset($resultats)) 
+  { 
+    // les données dans le formulaire sont exactes
+    $ligne=$resultats->fetch();
+    if (isset($ligne['prenom']))
+    {
+      echo "Bonjour ".$ligne['prenom']." ".$ligne['nom'].". Vous êtes connecté."; 
+      // Création de la session
+      $_SESSION['idutilisateur']=$ligne['idutilisateur'];
+      $_SESSION['login']=$ligne['login'];
+      $_SESSION['typeutilisateur']=$ligne['fk_typeutilisateur'];
+      ?> <meta http-equiv="refresh" content="2;url=index.php" /><?php
+    }
+    else
+    {
+        echo "Erreur de login";
         ?> <meta http-equiv="refresh" content="2;url=index.php" /><?php
-      }
-      else
-      {
-          echo "Erreur de login";
-          ?> <meta http-equiv="refresh" content="2;url=index.php" /><?php
-      }
-    } 
-
-
-
-    else 
-    { 
-      if (isset($_SESSION['login']))
-      {
-        session_destroy();
-        header ("location:index.php");
-      }  
-?>
+    }
+  } 
+  else 
+  { 
+    if (isset($_SESSION['login']))
+    {
+      session_destroy();
+      header ("location:index.php");
+    }?>
     <form class="form" method="POST" action="index.php?action=login">
     <table class="table">
       <tr>
