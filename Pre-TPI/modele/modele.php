@@ -82,3 +82,41 @@ function gethoraireglobal()
     $resultats = $connexion->query($requete);
     return $resultats;
 }
+
+
+function setnewhoraire($post)
+{
+    $datefin = $_SESSION['jourechange'];
+    $datedebut = $_SESSION['jourechange'];
+    $datefin = date('Y-m-d', strtotime($_SESSION['jourechange'] . " -1 days"));
+    $datedebut = date('Y-m-d', strtotime($_SESSION['jourechange'] . " +1 days"));
+
+    echo $post['fidhoraire']."    ";
+
+
+
+    $connexion = getBD();
+    $requete ="SELECT datefin, fk_utilisateur, fk_plagehoraire FROM tblhoraire WHERE idhoraire='".$post['fidhoraire']."'";
+    $resultats = $connexion->query($requete);
+
+    /*
+    $connexion = getBD();
+    $requete="UPDATE tblhoraire SET datefin='".$datefin."' WHERE idhoraire = '".$post['fidhoraire']."';";
+    $connexion->exec($requete);*/
+
+    $ligne=$resultats->fetch();
+
+    echo $datedebut."  ";
+    echo $ligne['datefin']."datefin";
+    echo $ligne['fk_utilisateur']." ";
+    echo $ligne['fk_plagehoraire']." "; 
+    echo $_SESSION['idutilisateur']." "; 
+    echo $post['ftranchehoraire'];
+
+
+    /*
+    $connexion = getBD();
+    $requete="INSERT INTO tblhoraire VALUES (DEFAULT,'".$datedebut."','".$ligne['datefin']."', '".$ligne['fk_utilisateur']."', '".$ligne['fk_plagehoraire']."'),(DEFAULT,'".$_SESSION['jourechange']."','".$_SESSION['jourechange']."','".$_SESSION['idutilisateur']."','".$post['ftranchehoraire']."')";
+    $connexion->exec($requete);*/
+
+}

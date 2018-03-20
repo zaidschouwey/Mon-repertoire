@@ -33,6 +33,10 @@ try
             	demanderechangehoraire();
             	break;
 
+            case 'definirechangehoraire':
+            	setechangehoraire();
+            	break;
+
             case 'infirmieredisponible':
             	infirmieredisponible();
             	break;

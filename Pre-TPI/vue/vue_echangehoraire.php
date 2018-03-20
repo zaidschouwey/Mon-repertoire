@@ -33,9 +33,6 @@
           ?></select>  
           </td>
         </tr>  
-        <tr>  
-          <td>Jour durant lequel vous pourrez venir travailler</td><td><input type="date" name="fdate1"/></td>
-        <tr>
          <td><input class="btn" type="submit" value="Voir personnes disponible"/></td>
        </tr>
       </table>
