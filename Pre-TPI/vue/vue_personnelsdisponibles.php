@@ -12,7 +12,7 @@
 
   <h2>Personnels disponible pour un échange</h2>
   <article>
-    <form class="form" method="POST" action="index.php?action=definirechangehoraire">
+    <form class="form" method="POST" action="index.php?action=demanderechangehoraire">
       <table class="table">
         <tr>
           <td>Infirmière pouvant effectuer un échange : </td>
@@ -22,7 +22,7 @@
           </td>
         </tr>  
         <tr>  
-          <td>Jour durant lequel vous pourrez venir travailler</td><td><input type="date" name="fjourdisp"/></td>
+          <td>Jour durant lequel vous pourrez venir travailler</td><td><input min="<?=date('Y-m-d'); ?>" type="date" name="fjourdisp"/></td>
         </tr>
         <tr>  
          <td>Tranches d'heures :</td><td>

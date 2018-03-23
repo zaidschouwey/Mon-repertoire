@@ -43,7 +43,7 @@ function etablirhoraire()
 {	
 	if(isset($_SESSION['typeutilisateur'])){
 		if($_SESSION['typeutilisateur'] == 2){
-			$resultats = getUser();
+			$resultats = getUsers();
 			require 'vue/vue_definirhoraire.php';
 		} else {erreur("Vous n'avez pas les accès.");}
 	} else {erreur("Vous n'avez pas les accès.");}
@@ -56,9 +56,6 @@ function definirhoraire()
 {
 	if(isset($_SESSION['typeutilisateur'])){
 		if($_SESSION['typeutilisateur'] == 2){
-			
-
-
 			if(isset($_POST)){
 				sethoraire($_POST);
 				header("location:index.php?action=etablirhoraire");
@@ -92,11 +89,13 @@ function infirmieredisponible()
 }
 
 //////////////////////////////////////////////////////////////////////////
-// Fonction pour demander un échange d'horaire avec une autre personnes
+// Fonction pour demander un échange d'horaire avec une autre personne
 //////////////////////////////////////////////////////////////////////////
 function demanderechangehoraire()
 {
-
+	$resultats = getUser($_POST);
+	addechange($_POST);
+	require 'vue/vue_envoimail.php';
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -108,16 +107,23 @@ function horaireglobal()
 	{
 		if($_SESSION['typeutilisateur'] == 2)
 		{
-			$users = getUser();
+			$users = getUsers();
 			$resultats = gethoraireglobal();
 			require 'vue/vue_horaireglobal.php';
 		} else {erreur("Vous n'avez pas les accès.");}
 	} else {erreur("Vous n'avez pas les accès.");}
 }
 
-function setechangehoraire()
+//////////////////////////////////////////////////////////////////////////
+// Effectue l'échange d'horaire qui a été confirmé
+//////////////////////////////////////////////////////////////////////////
+function confirmation()
 {
-	setnewhoraire($_POST);
+	$resultats = checkechange($_SESSION['idutilisateur']);
+	if(isset($resultats)){
+		setnewhoraire();
+		header("location:index.php");
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

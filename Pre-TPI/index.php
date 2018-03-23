@@ -33,10 +33,6 @@ try
             	demanderechangehoraire();
             	break;
 
-            case 'definirechangehoraire':
-            	setechangehoraire();
-            	break;
-
             case 'infirmieredisponible':
             	infirmieredisponible();
             	break;
@@ -45,6 +41,10 @@ try
             	horaireglobal();
             	break;
             	
+            case 'confirmationechange':
+            	confirmation();
+            	break;
+
 			default :
 				throw new Exception("action non valide");	
 		}

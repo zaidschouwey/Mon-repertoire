@@ -20,6 +20,8 @@
       $_SESSION['idutilisateur']=$ligne['idutilisateur'];
       $_SESSION['login']=$ligne['login'];
       $_SESSION['typeutilisateur']=$ligne['fk_typeutilisateur'];
+      $_SESSION['nom']=$ligne['nom'];
+      $_SESSION['prenom']=$ligne['prenom'];
       ?> <meta http-equiv="refresh" content="2;url=index.php" /><?php
     }
     else

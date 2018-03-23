@@ -45,14 +45,14 @@
           <td></td><td>fin :</td><td><input type="date" id="datepicker_fin2" name="fdatefin2"></td>
         </tr>
         <tr>  
-          <td></td><td>Matin :</td><td>
+          <td></td><td>Tranche horaire :</td><td>
             <select name="ftranchehoraire1">
               <option value="1">05:00 - 13:45</option>
               <option value="2">13:15 - 22:00</option>
               <option value="3">21:30 - 05:45</option>
           </select></td>
 
-          <td></td><td>Matin :</td><td>
+          <td></td><td>Tranche horaire :</td><td>
             <select required name="ftranchehoraire2">
               <option value="1">05:00 - 13:45</option>
               <option value="2">13:15 - 22:00</option>
