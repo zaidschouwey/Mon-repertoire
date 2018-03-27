@@ -85,7 +85,7 @@ function infirmieredisponible()
 	{
 		$resultats = getinfirmieredisponible($_POST);
 		require 'vue/vue_personnelsdisponibles.php';
-	}
+	} else {erreur("Vous n'avez pas les accès.");}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -93,9 +93,12 @@ function infirmieredisponible()
 //////////////////////////////////////////////////////////////////////////
 function demanderechangehoraire()
 {
-	$resultats = getUser($_POST);
-	addechange($_POST);
-	require 'vue/vue_envoimail.php';
+	if(isset($_SESSION['typeutilisateur']))
+	{
+		$resultats = getUser($_POST);
+		addechange($_POST);
+		require 'vue/vue_envoimail.php';
+	} else {erreur("Vous n'avez pas les accès.");}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -123,6 +126,8 @@ function confirmation()
 	if(isset($resultats)){
 		setnewhoraire();
 		header("location:index.php");
+	}else {
+		erreur("La confirmation n'a pas pu être vérifiée");
 	}
 }
 

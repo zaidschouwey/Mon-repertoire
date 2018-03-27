@@ -16,12 +16,15 @@ function getBD()
 //////////////////////////////////////////////////////////////////////////
 function getLogin($post)
 {
+    $login = $post['flogin'];
+    $password = $post['fpassword'];
+
     // Connexion à la BD
 	$connexion = getBD();
     // Vérifie que l'utilisateur est dans la table d'utilisateur
-	$requete ="SELECT * FROM tblutilisateurs WHERE login='".$post['flogin']."' AND password='".$post['fpassword']."'";
-	$resultats = $connexion->query($requete);
-	return $resultats;
+	$requete = $connexion->prepare("SELECT * FROM tblutilisateurs WHERE login=? AND password=?");
+    $requete->execute(array($login, $password));
+    return $requete;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -113,7 +116,11 @@ function checkechange($post)
     $connexion=getBD();
     $requete="SELECT * FROM tblechange WHERE userto='".$_SESSION['idutilisateur']."'";
     $resultats = $connexion->query($requete);
-    return $resultats;
+    $ligne = $resultats->fetch();
+    if($ligne['userto']==$_SESSION['idutilisateur'])
+    {
+        return $resultats;
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -149,7 +156,6 @@ function setnewhoraire()
     $connexion = getBD();
     $requete="SELECT * FROM tblhoraire WHERE ('".$ligne['jourechange']."' BETWEEN datedebut AND datefin) AND (fk_utilisateur='".$ligne['userask']."')";
     $resultats1 = $connexion->query($requete);
-
     // Connexion à la BD
     $connexion = getBD();
     $requete ="SELECT datefin, fk_utilisateur, fk_plagehoraire FROM tblhoraire WHERE idhoraire='".$ligne['usertoidhoraire']."'";
@@ -164,32 +170,10 @@ function setnewhoraire()
 
     // Connexion à la BD
     $connexion = getBD();
-    $requete="INSERT INTO tblhoraire VALUES (DEFAULT,'".$datedebut."','".$ligne1['datefin']."', '".$ligne['userask']."', '".$ligne1['fk_plagehoraire']."'),(DEFAULT,'".$ligne['jourechange']."','".$ligne['jourechange']."','".$ligne2['fk_utilisateur']."','".$ligne1['fk_plagehoraire']."'),(DEFAULT,'".$ligne['fuseraskjdisp']."','".$ligne['fuseraskjdisp']."','".$ligne['userask']."','".$ligne['userasktranche']."')";
+    $requete="INSERT INTO tblhoraire VALUES (DEFAULT,'".$datedebut."','".$ligne1['datefin']."', '".$ligne['userask']."', '".$ligne1['fk_plagehoraire']."'),(DEFAULT,'".$ligne['jourechange']."','".$ligne['jourechange']."','".$ligne2['fk_utilisateur']."','".$ligne1['fk_plagehoraire']."'),(DEFAULT,'".$ligne['useraskjdisp']."','".$ligne['useraskjdisp']."','".$ligne['userask']."','".$ligne['userasktranche']."')";
     $connexion->exec($requete);
 
     $connexion = getBD();
-    $requete="DEL FROM tblechange WHERE USERTO='".$_SESSION['idutilisateur']."'";
+    $requete="DELETE FROM tblechange WHERE USERTO='".$_SESSION['idutilisateur']."'";
     $connexion->exec($requete);
-
-
-
-    /*
-    $datefin = $_SESSION['jourechange'];
-    $datedebut = $_SESSION['jourechange'];
-    $datefin = date('Y-m-d', strtotime($_SESSION['jourechange'] . " -1 days"));
-    $datedebut = date('Y-m-d', strtotime($_SESSION['jourechange'] . " +1 days"));
-    $connexion = getBD();
-    $requete ="SELECT * FROM tblhoraire WHERE ('".$_SESSION['jourechange']."' BETWEEN datedebut AND datefin) AND (fk_utilisateur='".$_SESSION['idutilisateur']."')";
-    $resultats1 = $connexion->query($requete);
-    $connexion = getBD();
-    $requete ="SELECT datefin, fk_utilisateur, fk_plagehoraire FROM tblhoraire WHERE idhoraire='".$post['fidhoraire']."'";
-    $resultats2 = $connexion->query($requete);
-    $ligne1=$resultats1->fetch();
-    $ligne2=$resultats2->fetch();
-    $connexion = getBD();
-    $requete="UPDATE tblhoraire SET datefin='".$datefin."' WHERE idhoraire = '".$ligne1['idhoraire']."';";
-    $connexion->exec($requete);
-    $connexion = getBD();
-    $requete="INSERT INTO tblhoraire VALUES (DEFAULT,'".$datedebut."','".$ligne1['datefin']."', '".$_SESSION['idutilisateur']."', '".$ligne1['fk_plagehoraire']."'),(DEFAULT,'".$_SESSION['jourechange']."','".$_SESSION['jourechange']."','".$ligne2['fk_utilisateur']."','".$ligne1['fk_plagehoraire']."'),(DEFAULT,'".$post['fjourdisp']."','".$post['fjourdisp']."','".$_SESSION['idutilisateur']."','".$post['ftranchehoraire']."')";
-    $connexion->exec($requete);*/
 }

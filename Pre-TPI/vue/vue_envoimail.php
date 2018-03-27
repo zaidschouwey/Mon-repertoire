@@ -34,7 +34,8 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
 
 mail($destinataire, $sujet, $message, $entete) ; // Envoi du mail 
 echo "<h1>Envoi d'une demande</h1>";
-echo "<p>Le mail à été envoyé à ".$email." avec succès.</p>";
+echo "<p>Le mail à été envoyé à ".$email." avec succès.</p>";?>
+<meta http-equiv="refresh" content="2;url=index.php" /><?php
 
 
 
